@@ -12,7 +12,6 @@ public class Device {
     private Integer ID;
 
 
-
     public LocalDate getDate() {
         return date;
     }

@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -42,17 +40,17 @@ public class DeviceController {
         DeviceDAO devDao = new DeviceDAO();
 
         if (devInfo.matches(REGEXPMAC)) {
-            return new ResponseEntity<Device>(devDao.getDeviceByMAC(devInfo), HttpStatus.OK);
+            return new ResponseEntity<>(devDao.getDeviceByMAC(devInfo), HttpStatus.OK);
         } else {
             try {
                 id = Integer.parseInt(devInfo);
-                return new ResponseEntity<Device>(devDao.getDeviceById(id), HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(devDao.getDeviceById(id), HttpStatus.ACCEPTED);
 
             } catch (Exception e) {
 
             }
         }
-        return new ResponseEntity<Device>(HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
