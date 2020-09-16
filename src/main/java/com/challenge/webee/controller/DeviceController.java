@@ -67,7 +67,7 @@ public class DeviceController {
 
             }
         }
-        return new ResponseEntity<Device>(HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<Device>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
@@ -77,6 +77,19 @@ public class DeviceController {
         Device device = new Device();
         device.setMacAdress(dev.getMacAdress());
         device.setDate(dev.getDate());
-        return new ResponseEntity<Device>(device,HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(device, HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping(path = "/{devInfo}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<String> deleteDevice(@PathVariable String devInfo) {
+
+        int id;
+        try{
+            id = Integer.parseInt(devInfo);
+        } catch (Exception e ){
+            return new ResponseEntity<>("Not valid ID", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+
+        return new ResponseEntity<>("Device with ID "+ id+ " deleted.", HttpStatus.ACCEPTED);
     }
 }
