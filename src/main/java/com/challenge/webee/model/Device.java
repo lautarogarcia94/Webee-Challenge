@@ -14,7 +14,7 @@ public class Device {
     private String ID;
 
 
-    
+
     public LocalDate getDate() {
         return date;
     }
