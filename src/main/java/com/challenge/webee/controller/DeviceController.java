@@ -1,14 +1,13 @@
 package com.challenge.webee.controller;
 
 import com.challenge.webee.model.Device;
+import com.challenge.webee.model.request.DeviceRequestModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +33,12 @@ public class DeviceController {
         dev.setID("23");
 
         devList.add(dev);
+        Device dev1 = new Device();
+        dev1.setDate(LocalDate.of(2020, 05, 24));
+        dev1.setMacAdress("00:24:AD:00:90:00");
+        dev1.setID("20");
 
-        dev.setDate(LocalDate.of(2020, 05, 24));
-        dev.setMacAdress("00:24:AD:00:90:00");
-        dev.setID("20");
-
-        devList.add(dev);
+        devList.add(dev1);
 
         return devList;
     }
@@ -71,5 +70,13 @@ public class DeviceController {
         return new ResponseEntity<Device>(HttpStatus.NOT_ACCEPTABLE);
     }
 
-    
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Device> createUser(@Valid @RequestBody DeviceRequestModel dev) {
+
+        Device device = new Device();
+        device.setMacAdress(dev.getMacAdress());
+        device.setDate(dev.getDate());
+        return new ResponseEntity<Device>(device,HttpStatus.ACCEPTED);
+    }
 }

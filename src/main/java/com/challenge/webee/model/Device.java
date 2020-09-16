@@ -4,9 +4,7 @@ import java.time.LocalDate;
 
 public class Device {
 
-
     private LocalDate date;
-
 
     private String macAdress;
 
