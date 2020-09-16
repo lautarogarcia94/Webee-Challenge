@@ -1,6 +1,7 @@
 package com.challenge.webee.controller;
 
 import com.challenge.webee.model.Device;
+import com.challenge.webee.model.deviceDAO.DeviceDAO;
 import com.challenge.webee.model.request.DeviceRequestModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,21 +27,9 @@ public class DeviceController {
      */
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Device> getUsers() {
-        List<Device> devList = new ArrayList<Device>();
-        Device dev = new Device();
-        dev.setDate(LocalDate.now());
-        dev.setMacAdress("4F:24:AD:B1:90:21");
-        dev.setID("23");
-
-        devList.add(dev);
-        Device dev1 = new Device();
-        dev1.setDate(LocalDate.of(2020, 05, 24));
-        dev1.setMacAdress("00:24:AD:00:90:00");
-        dev1.setID("20");
-
-        devList.add(dev1);
-
-        return devList;
+        DeviceDAO devDao = new DeviceDAO();
+        
+        return devDao.getDevices();
     }
 
     /**
@@ -84,12 +73,15 @@ public class DeviceController {
     public ResponseEntity<String> deleteDevice(@PathVariable String devInfo) {
 
         int id;
-        try{
+        try {
             id = Integer.parseInt(devInfo);
-        } catch (Exception e ){
+        } catch (Exception e) {
+            return new ResponseEntity<>("Not valid ID", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        if (id < 0) {
             return new ResponseEntity<>("Not valid ID", HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
-        return new ResponseEntity<>("Device with ID "+ id+ " deleted.", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Device with ID " + id + " deleted.", HttpStatus.ACCEPTED);
     }
 }
