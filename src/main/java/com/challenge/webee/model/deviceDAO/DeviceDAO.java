@@ -14,24 +14,39 @@ public class DeviceDAO {
         Device dev = new Device();
         dev.setDate(LocalDate.now());
         dev.setMacAdress("4F:24:AD:B1:90:21");
-        dev.setID("23");
+        dev.setID(23);
 
         devList.add(dev);
         Device dev1 = new Device();
         dev1.setDate(LocalDate.of(2020, 05, 24));
         dev1.setMacAdress("00:24:AD:00:90:00");
-        dev1.setID("20");
+        dev1.setID(20);
 
         devList.add(dev1);
 
         return devList;
     }
 
-  /*  public Device getDeviceById(int id);
+    public Device getDeviceById(int id){
 
-    public Device getDeviceByMAC(String macAdress);
+        Device dev = new Device();
+        dev.setDate(LocalDate.of(2020, 02, 02));
+        dev.setMacAdress("00:00:00:00:00:00");
+        dev.setID(id);
 
-    public void insertDevice(DeviceRequestModel dev);
+        return dev;
+    }
+
+    public Device getDeviceByMAC(String macAdress){
+        Device dev = new Device();
+        dev.setDate(LocalDate.of(2020, 02, 02));
+        dev.setMacAdress(macAdress);
+        dev.setID(45);
+
+        return dev;
+    }
+
+   /* public void insertDevice(DeviceRequestModel dev);
 
     public void deleteDevice(int id);
 */

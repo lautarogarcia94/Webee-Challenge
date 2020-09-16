@@ -28,7 +28,7 @@ public class DeviceController {
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Device> getUsers() {
         DeviceDAO devDao = new DeviceDAO();
-        
+
         return devDao.getDevices();
     }
 
@@ -39,18 +39,14 @@ public class DeviceController {
     @GetMapping(path = "/{devInfo}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Device> getDevice(@PathVariable String devInfo) {
         int id;
-        Device dev = new Device();
-        dev.setDate(LocalDate.now());
-        dev.setMacAdress("4F:24:AD:B1:90:21");
-        dev.setID("23");
+        DeviceDAO devDao = new DeviceDAO();
+
         if (devInfo.matches(REGEXPMAC)) {
-            dev.setMacAdress(devInfo);
-            return new ResponseEntity<Device>(dev, HttpStatus.ACCEPTED);
+            return new ResponseEntity<Device>(devDao.getDeviceByMAC(devInfo), HttpStatus.OK);
         } else {
             try {
                 id = Integer.parseInt(devInfo);
-                dev.setID(devInfo);
-                return new ResponseEntity<Device>(dev, HttpStatus.ACCEPTED);
+                return new ResponseEntity<Device>(devDao.getDeviceById(id), HttpStatus.ACCEPTED);
 
             } catch (Exception e) {
 

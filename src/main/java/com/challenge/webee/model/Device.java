@@ -9,7 +9,7 @@ public class Device {
     private String macAdress;
 
 
-    private String ID;
+    private Integer ID;
 
 
 
@@ -29,11 +29,11 @@ public class Device {
         this.macAdress = macAdress;
     }
 
-    public String getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 }
