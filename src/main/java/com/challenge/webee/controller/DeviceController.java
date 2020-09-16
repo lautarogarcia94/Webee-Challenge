@@ -56,11 +56,14 @@ public class DeviceController {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Device> createUser(@Valid @RequestBody DeviceRequestModel dev) {
-
+/*
         Device device = new Device();
         device.setMacAdress(dev.getMacAdress());
-        device.setDate(dev.getDate());
-        return new ResponseEntity<>(device, HttpStatus.ACCEPTED);
+        device.setDate(dev.getDate());*/
+
+        DeviceDAO devDao = new DeviceDAO();
+        devDao.insertDevice(dev);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/{devInfo}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -75,7 +78,8 @@ public class DeviceController {
         if (id < 0) {
             return new ResponseEntity<>("Not valid ID", HttpStatus.UNPROCESSABLE_ENTITY);
         }
-
-        return new ResponseEntity<>("Device with ID " + id + " deleted.", HttpStatus.ACCEPTED);
+        DeviceDAO devDao = new DeviceDAO();
+        devDao.deleteDevice(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

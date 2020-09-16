@@ -1,6 +1,8 @@
 package com.challenge.webee.model.deviceDAO;
 
 import com.challenge.webee.model.Device;
+import com.challenge.webee.model.connection.ListConnection;
+import com.challenge.webee.model.request.DeviceRequestModel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ public class DeviceDAO {
      * @return List<Device>
      */
     public List<Device> getDevices() {
-        List<Device> devList = new ArrayList<Device>();
+        /*List<Device> devList = new ArrayList<Device>();
         Device dev = new Device();
         dev.setDate(LocalDate.now());
         dev.setMacAdress("4F:24:AD:B1:90:21");
@@ -27,7 +29,8 @@ public class DeviceDAO {
 
         devList.add(dev1);
 
-        return devList;
+        return devList;*/
+        return  ListConnection.getDeviceList();
     }
 
     /**
@@ -39,12 +42,14 @@ public class DeviceDAO {
      */
     public Device getDeviceById(int id) {
 
+        /*
         Device dev = new Device();
         dev.setDate(LocalDate.of(2020, 02, 02));
         dev.setMacAdress("00:00:00:00:00:00");
-        dev.setID(id);
+        dev.setID(id);*/
 
-        return dev;
+
+        return ListConnection.getDeviceById(id);
     }
 
     /**
@@ -60,11 +65,15 @@ public class DeviceDAO {
         dev.setMacAdress(macAdress);
         dev.setID(45);
 
-        return dev;
+        return ListConnection.getDeviceByMac(macAdress);
     }
 
-   /* public void insertDevice(DeviceRequestModel dev);
+    public void insertDevice(DeviceRequestModel dev){
+        ListConnection.setDevice(dev);
+    }
 
-    public void deleteDevice(int id);
-*/
+    public void deleteDevice(int id){
+        ListConnection.deleteDevice(id);
+    }
+
 }
