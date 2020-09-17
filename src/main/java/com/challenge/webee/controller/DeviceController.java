@@ -26,11 +26,10 @@ public class DeviceController {
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Device> getUsers() {
         DeviceDAO devDao = new DeviceDAO();
-
         return devDao.getDevices();
     }
 
-    /**
+    /** 
      * @param devInfo
      * @return
      */
@@ -38,29 +37,21 @@ public class DeviceController {
     public ResponseEntity<Device> getDevice(@PathVariable String devInfo) {
         int id;
         DeviceDAO devDao = new DeviceDAO();
-
         if (devInfo.matches(REGEXPMAC)) {
             return new ResponseEntity<>(devDao.getDeviceByMAC(devInfo), HttpStatus.OK);
         } else {
             try {
                 id = Integer.parseInt(devInfo);
                 return new ResponseEntity<>(devDao.getDeviceById(id), HttpStatus.ACCEPTED);
-
             } catch (Exception e) {
-
+                return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
             }
         }
-        return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Device> createUser(@Valid @RequestBody DeviceRequestModel dev) {
-/*
-        Device device = new Device();
-        device.setMacAdress(dev.getMacAdress());
-        device.setDate(dev.getDate());*/
-
         DeviceDAO devDao = new DeviceDAO();
         devDao.insertDevice(dev);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -68,7 +59,6 @@ public class DeviceController {
 
     @DeleteMapping(path = "/{devInfo}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<String> deleteDevice(@PathVariable String devInfo) {
-
         int id;
         try {
             id = Integer.parseInt(devInfo);

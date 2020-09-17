@@ -24,10 +24,9 @@ public class ListConnection {
     }
 
     public static Device getDeviceById(int id) {
-
         Device device = new Device();
-        for (Device dev: deviceList) {
-            if(dev.getID() == id) {
+        for (Device dev : deviceList) {
+            if (dev.getID() == id) {
                 device = dev;
                 break;
             }
@@ -36,10 +35,9 @@ public class ListConnection {
     }
 
     public static Device getDeviceByMac(String macAdress) {
-
         Device device = new Device();
-        for (Device dev: deviceList) {
-            if(dev.getMacAdress().equalsIgnoreCase(macAdress)) {
+        for (Device dev : deviceList) {
+            if (dev.getMacAdress().equalsIgnoreCase(macAdress)) {
                 device = dev;
                 break;
             }
@@ -47,16 +45,16 @@ public class ListConnection {
         return device;
     }
 
-    public static void deleteDevice(int id){
+    public static void deleteDevice(int id) {
         int index = -1;
-        for (Device dev: deviceList) {
-            if(dev.getID() == id) {
+        for (Device dev : deviceList) {
+            if (dev.getID() == id) {
                 index = deviceList.indexOf(dev);
                 break;
             }
         }
 
-        if(index>=0){
+        if (index >= 0) {
             deviceList.remove(index);
         }
     }
