@@ -56,7 +56,7 @@ public class ListConnection {
             }
         }
 
-        if(index>0){
+        if(index>=0){
             deviceList.remove(index);
         }
     }
