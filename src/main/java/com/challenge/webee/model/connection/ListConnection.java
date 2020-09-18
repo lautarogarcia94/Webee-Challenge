@@ -16,12 +16,13 @@ public class ListConnection {
      *
      * @param dev Device to be inserted
      */
-    public static void setDevice(DeviceRequestModel dev) {
+    public static String setDevice(DeviceRequestModel dev) {
         Device device = new Device();
         device.setDate(dev.getDate());
         device.setMacAddress(dev.getMacAddress());
         device.setID(++idCount);
         deviceList.add(device);
+        return "Register OK";
     }
 
     /**
@@ -74,7 +75,7 @@ public class ListConnection {
      *
      * @param id int greater than 0
      */
-    public static void deleteDevice(int id) {
+    public static String deleteDevice(int id) {
         int index = -1;
         for (Device dev : deviceList) {
             if (dev.getID() == id) {
@@ -85,6 +86,8 @@ public class ListConnection {
 
         if (index >= 0) {
             deviceList.remove(index);
+            return "Device deleted OK";
         }
+        return "Device NOT deleted";
     }
 }
