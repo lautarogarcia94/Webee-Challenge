@@ -18,7 +18,7 @@ public class DeviceController {
     private static final String REGEXPMAC = "^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$";
 
     /**
-     * This method returns a JSON or XML formated List of saved
+     * This method returns a JSON or XML formatted List of saved
      * devices, when receiving a GET request in the endpoint .../devices
      *
      * @return List<Device>
@@ -29,9 +29,12 @@ public class DeviceController {
         return devDao.getDevices();
     }
 
-    /** 
-     * @param devInfo
-     * @return
+    /** Returns a device depending on devInfo parameter (id or MAC address), when receiving
+     * a GET request in the endpoint .../devices/{devInfo}
+     *
+     * @param devInfo ID or MAC address of a device
+     * @return Device if it exist (if not it returns a null Device), as a body of a HTTP
+     *         OK message
      */
     @GetMapping(path = "/{devInfo}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Device> getDevice(@PathVariable String devInfo) {
@@ -42,13 +45,25 @@ public class DeviceController {
         } else {
             try {
                 id = Integer.parseInt(devInfo);
-                return new ResponseEntity<>(devDao.getDeviceById(id), HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(devDao.getDeviceById(id), HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
             }
         }
     }
 
+    /**
+     * Register a new Device using date and MAC address, when receiving a POST request
+     * in the endpoint .../devices. The parameters have to been send in the body of the HTTP request.
+     * These method would expect a body message like these:
+     * {
+     *     "date": "21042020",
+     *     "macAddress": "FF:AA:FF:24:24:FF"
+     * }
+     *
+     * @param dev Device parameter (date and MAC address only) which is tested before doing anything
+     * @return HTTP Created message - 201
+     */
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Device> createUser(@Valid @RequestBody DeviceRequestModel dev) {
@@ -57,6 +72,14 @@ public class DeviceController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+
+    /**
+     * Delete a Device using a device ID parameter, when receiving  a DELETE request in
+     * the endpoint .../devices/{devInfo}
+     *
+     * @param devInfo ID of a device
+     * @return HTTP OK message - 200
+     */
     @DeleteMapping(path = "/{devInfo}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<String> deleteDevice(@PathVariable String devInfo) {
         int id;

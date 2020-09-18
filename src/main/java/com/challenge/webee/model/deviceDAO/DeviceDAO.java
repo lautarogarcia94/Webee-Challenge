@@ -4,13 +4,12 @@ import com.challenge.webee.model.Device;
 import com.challenge.webee.model.connection.ListConnection;
 import com.challenge.webee.model.request.DeviceRequestModel;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class DeviceDAO {
 
     /**
-     * This method returns a list of devices.
+     * Calls a ListConnection method to get a list of devices, and returns it.
      *
      * @return List<Device>
      */
@@ -19,8 +18,8 @@ public class DeviceDAO {
     }
 
     /**
-     * This method looks for a device with an id parameter. It return
-     * a device if it exists a match, if not it returns a null.
+     * Calls a ListConnection method to look for a device with an id parameter, and
+     * returns it.
      *
      * @param id Integer greater than 0
      * @return Device
@@ -30,24 +29,31 @@ public class DeviceDAO {
     }
 
     /**
-     * This method looks for a device with an MAC adrress parameter.
-     * It return a device if it exists a match, if not it returns a null.
+     * Calls a ListConnection method to look for a device with an MAC addrress
+     * parameter, and returns it.
      *
-     * @param macAdress String must match
+     * @param macAddress String must match
      * @return Device
      */
-    public Device getDeviceByMAC(String macAdress) {
-        Device dev = new Device();
-        dev.setDate(LocalDate.of(2020, 02, 02));
-        dev.setMacAdress(macAdress);
-        dev.setID(45);
-        return ListConnection.getDeviceByMac(macAdress);
+    public Device getDeviceByMAC(String macAddress) {
+        return ListConnection.getDeviceByMac(macAddress);
     }
 
+
+    /**
+     * Calls a ListConnection method to register a device.
+     *
+     * @param dev
+     */
     public void insertDevice(DeviceRequestModel dev) {
         ListConnection.setDevice(dev);
     }
 
+    /**
+     * Calls a ListConnection method to delete a device.
+     *
+     * @param id Integer greater than 0
+     */
     public void deleteDevice(int id) {
         ListConnection.deleteDevice(id);
     }

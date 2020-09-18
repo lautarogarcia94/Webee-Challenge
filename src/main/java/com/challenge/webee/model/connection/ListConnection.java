@@ -11,18 +11,35 @@ public class ListConnection {
     private static List<Device> deviceList = new ArrayList<>();
     private static int idCount = 0;
 
+    /**
+     * Register a Device, inserting it into a List<Device>.
+     *
+     * @param dev Device to be inserted
+     */
     public static void setDevice(DeviceRequestModel dev) {
         Device device = new Device();
         device.setDate(dev.getDate());
-        device.setMacAdress(dev.getMacAdress());
+        device.setMacAddress(dev.getMacAddress());
         device.setID(++idCount);
         deviceList.add(device);
     }
 
+    /**
+     * Returns a List<Device> of all Devices registered.
+     *
+     * @return List<Device>
+     */
     public static List<Device> getDeviceList() {
         return deviceList;
     }
 
+    /**
+     * Returns a single Device, looking it for ID. If there is any match,
+     * it returns a Device initialized to null.
+     *
+     * @param id int greater than 0
+     * @return Device
+     */
     public static Device getDeviceById(int id) {
         Device device = new Device();
         for (Device dev : deviceList) {
@@ -34,10 +51,17 @@ public class ListConnection {
         return device;
     }
 
-    public static Device getDeviceByMac(String macAdress) {
+    /**
+     * Returns a single Device, looking it for MAC address. If there is any match,
+     * it returns a Device initialized to null.
+     *
+     * @param macAddress format FF:FF:FF:FF:FF:FF
+     * @return Device
+     */
+    public static Device getDeviceByMac(String macAddress) {
         Device device = new Device();
         for (Device dev : deviceList) {
-            if (dev.getMacAdress().equalsIgnoreCase(macAdress)) {
+            if (dev.getMacAddress().equalsIgnoreCase(macAddress)) {
                 device = dev;
                 break;
             }
@@ -45,6 +69,11 @@ public class ListConnection {
         return device;
     }
 
+    /**
+     * Deletes a device, looking it for ID.
+     *
+     * @param id int greater than 0
+     */
     public static void deleteDevice(int id) {
         int index = -1;
         for (Device dev : deviceList) {

@@ -15,8 +15,8 @@ public class DeviceRequestModel {
     private LocalDate date;
 
 
-    @Pattern(regexp = REGEXPMAC, message = "Not valid MAC adress")
-    private String macAdress;
+    @Pattern(regexp = REGEXPMAC, message = "Not valid MAC address")
+    private String macAddress;
 
     public LocalDate getDate() {
         return date;
@@ -26,11 +26,11 @@ public class DeviceRequestModel {
         this.date = date;
     }
 
-    public String getMacAdress() {
-        return macAdress;
+    public String getMacAddress() {
+        return macAddress;
     }
 
-    public void setMacAdress(String macAdress) {
-        this.macAdress = macAdress;
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress;
     }
 }

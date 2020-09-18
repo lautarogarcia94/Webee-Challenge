@@ -6,7 +6,7 @@ public class Device {
 
     private LocalDate date;
 
-    private String macAdress;
+    private String macAddress;
 
 
     private Integer ID;
@@ -20,12 +20,12 @@ public class Device {
         this.date = date;
     }
 
-    public String getMacAdress() {
-        return macAdress;
+    public String getMacAddress() {
+        return macAddress;
     }
 
-    public void setMacAdress(String macAdress) {
-        this.macAdress = macAdress;
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress;
     }
 
     public Integer getID() {
