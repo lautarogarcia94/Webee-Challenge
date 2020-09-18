@@ -8,7 +8,6 @@ public class Device {
 
     private String macAddress;
 
-
     private Integer ID;
 
 
