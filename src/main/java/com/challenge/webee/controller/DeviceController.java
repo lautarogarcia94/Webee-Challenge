@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -29,12 +30,13 @@ public class DeviceController {
         return devDao.getDevices();
     }
 
-    /** Returns a device depending on devInfo parameter (id or MAC address), when receiving
+    /**
+     * Returns a device depending on devInfo parameter (id or MAC address), when receiving
      * a GET request in the endpoint .../devices/{devInfo}
      *
      * @param devInfo ID or MAC address of a device
      * @return Device if it exist (if not it returns a null Device), as a body of a HTTP
-     *         OK message
+     * OK message
      */
     @GetMapping(path = "/{devInfo}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Device> getDevice(@PathVariable String devInfo) {
@@ -57,8 +59,8 @@ public class DeviceController {
      * in the endpoint .../devices. The parameters have to been send in the body of the HTTP request.
      * These method would expect a body message like these:
      * {
-     *     "date": "21042020",
-     *     "macAddress": "FF:AA:FF:24:24:FF"
+     * "date": "21042020",
+     * "macAddress": "FF:AA:FF:24:24:FF"
      * }
      *
      * @param dev Device parameter (date and MAC address only) which is tested before doing anything
@@ -67,6 +69,10 @@ public class DeviceController {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Device> createUser(@Valid @RequestBody DeviceRequestModel dev) {
+
+        if (dev.getDate().compareTo(LocalDate.of(2020, 01, 01)) < 0) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         DeviceDAO devDao = new DeviceDAO();
         devDao.insertDevice(dev);
         return new ResponseEntity<>(HttpStatus.CREATED);

@@ -10,10 +10,8 @@ public class DeviceRequestModel {
     private static final String REGEXPMAC = "^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$";
 
 
-    //TODO: add date validator
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "ddMMyyyy")
     private LocalDate date;
-
 
     @Pattern(regexp = REGEXPMAC, message = "Not valid MAC address")
     private String macAddress;
